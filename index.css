@@ -1,0 +1,9 @@
+body {
+    background-color: blue;
+    display: grid;
+    max-width: 250px;
+    column-count: 5;
+}
+#calculator {
+    display: flex;
+}
