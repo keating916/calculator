@@ -1,3 +1,8 @@
+let display = document.getElementById("display")
+let numbers = document.getElementsByClassName("num")
+let buttons = document.getElementsByClassName("input")
+let ops = document.getElementsByClassName("ops")
+
 function add(a,b) {
     return a + b;
 }

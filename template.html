@@ -1,38 +1,42 @@
 <!DOCTYPE html>
-<head>
-    <title>Calculator</title>
-    <meta charset="utf8">
-    <link href="index.css" rel="stylesheet" type="text/css">
-</head>
-<body>
-    <table id = "calculator">
-        <input type = "text" placeholder="Enter numbers here"></input>
-        <div>
-            <button id = "seven">7</button>
-            <button id = "eight">8</button>
-            <button id = "nine">9</button>
-            <button id = "div">/</button>
+<html>
+    <head>
+        <title>Calculator</title>
+        <meta charset="utf8">
+        <link href="index.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <div id = "calculator">
+            <div class = "row">
+                <input type = "text" placeholder="Enter numbers here" id = "display"></input>
+            </div>
+            <div class = "row top">
+                <button value = "7" class = "input num">7</button>
+                <button value = "8" class = "input num">8</button>
+                <button value = "9" class = "input num">9</button>
+                <button value = "/" class = "input ops">/</button>
+            </div>
+            <div class = "row mid-top">
+                <button value = "4" class = "input num">4</button>
+                <button value = "5" class = "input num">5</button>
+                <button value = "6" class = "input num">6</button>
+                <button value = "*" class = "input ops">*</button>
+            </div>
+            <div class = "row mid-bottom">
+                <button value = "1" class = "input num">1</button>
+                <button value = "2" class = "input num">2</button>
+                <button value = "3" class = "input num">3</button>
+                <button value = "-" class = "input ops">-</button>
+            </div>
+            <div class = "row bottom">
+                <button value = "%" class = "input ops">%</button>
+                <button value = "0" class = "input num">0</button>
+                <button value = "." class = "input num">.</button>
+                <button value = "+" class = "input ops">+</button>
+            </div>
         </div>
-        <div>
-            <button id = "four">4</button>
-            <button id = "five">5</button>
-            <button id = "six">6</button>
-            <button id = "multiply">*</button>
-        </div>
-        <div>
-            <button id = "one">1</button>
-            <button id = "two">2</button>
-            <button id = "three">3</button>
-            <button id = "subtract">-</button>
-        </div>
-        <div>
-            <button id = "zero">0</button>
-            <button id = "dec">.</button>
-            <button id = "modulo">%</button>
-            <button id = "add">+</button>
-        </div>
-    </table>
-</body>
-<footer>
-   
-</footer>
+    </body>
+    <footer>
+        <script src = "./index.js"></script>
+    </footer>
+</html>
