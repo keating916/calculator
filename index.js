@@ -1,7 +1,17 @@
-let display = document.getElementById("display")
+let display = document.getElementById("display").textContent;
 let numbers = document.getElementsByClassName("num")
 let buttons = document.getElementsByClassName("input")
 let ops = document.getElementsByClassName("ops")
+
+document.addEventListener("keypress", k => {
+    let kcode = k.keyCode;
+    console.log(k.key);
+    if(kcode >= 48 && kcode <= 57) {
+        display += k.key;
+    }
+    console.log(display);
+    return display;
+})
 
 function add(a,b) {
     return a + b;
