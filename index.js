@@ -30,9 +30,11 @@ document.addEventListener("keydown", e => {
                 case 106: t = multiply(firstNum,secondNum); fk = "*"; break;
                 case 111: t = divide(firstNum,secondNum); fk = "/"; break
             }
-            out.textContent+= `${firstNum} ${fk} ${secondNum} = ${t}`
-        firstNum = undefined;
-        display.value = 0;
+            let total = document.createElement("div")
+            total.textContent = `${firstNum} ${fk} ${secondNum} = ${t}`
+            out.appendChild(total);
+            firstNum = undefined;
+            display.value = 0;
         
         }
     }

@@ -22,6 +22,10 @@ body {
     height: 100%;
 }
 
+#output{
+    padding-top: 10%;
+}
+
 .row {
     display: flex;
     height: 14.6%;
