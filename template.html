@@ -8,7 +8,7 @@
     <body>
         <div id = "calculator">
             <div class = "row">
-                <input type = "text" placeholder="Enter numbers here" id = "display"></input>
+                <input type = "text" id = "display" value = 0>
             </div>
             <div class = "row top">
                 <button value = "7" class = "input num">7</button>
@@ -34,7 +34,12 @@
                 <button value = "." class = "input num">.</button>
                 <button value = "+" class = "input ops">+</button>
             </div>
+            <div class = "row">
+                <button value = "=" class = "input end">=</button>
+                <button id = "clear" class = "input end">Clear</button>
+            </div>
         </div>
+        <p id = "output"></p>
     </body>
     <footer>
         <script src = "./index.js"></script>

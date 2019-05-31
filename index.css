@@ -24,11 +24,14 @@ body {
 
 .row {
     display: flex;
-    height: 18%;
+    height: 14.6%;
     padding-top: .5%;
     padding-bottom: .5%;
 }
 
 button {
     width: 25%;
+}
+.end {
+    width: 50%;
 }

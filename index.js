@@ -1,16 +1,41 @@
-let display = document.getElementById("display").textContent;
+let display = document.getElementById("display");
+let out = document.getElementById("output");
 let numbers = document.getElementsByClassName("num")
 let buttons = document.getElementsByClassName("input")
 let ops = document.getElementsByClassName("ops")
-
-document.addEventListener("keypress", k => {
-    let kcode = k.keyCode;
-    console.log(k.key);
-    if(kcode >= 48 && kcode <= 57) {
-        display += k.key;
+let firstNum;
+let secondNum;
+let f;
+document.addEventListener("keydown", e => {
+    let k = parseInt(e.keyCode);
+    console.log(k);
+    let t;
+    let fk;
+    if(firstNum == undefined || f == undefined){
+        if((k >= 48 && k <= 57) || (k >= 96 && k<= 105)) {
+            display.value = parseInt(display.value + e.key);
+        }else if(k == 107 || k == 106 || k == 111 || k == 109){
+            firstNum = parseInt(display.value);
+            f = k
+            display.value = 0
+        }
+    }else{
+        if((k >= 48 && k <= 57) || (k >= 96 && k<= 105)) {
+            display.value = parseInt(display.value + e.key);
+        }else if(k == 13){
+            secondNum = parseInt(display.value);
+            switch(f) {
+                case 107: t = add(firstNum,secondNum); fk = "+"; break;
+                case 109: t = subtract(firstNum,secondNum); fk = "-"; break;
+                case 106: t = multiply(firstNum,secondNum); fk = "*"; break;
+                case 111: t = divide(firstNum,secondNum); fk = "/"; break
+            }
+            out.textContent+= `${firstNum} ${fk} ${secondNum} = ${t}`
+        firstNum = undefined;
+        display.value = 0;
+        
+        }
     }
-    console.log(display);
-    return display;
 })
 
 function add(a,b) {
