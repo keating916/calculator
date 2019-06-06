@@ -1,17 +1,55 @@
 let display = document.getElementById("display");
-let numbers = document.getElementsByClassName("num")
+let numbers = document.getElementsByClassName("input")
 let ops = document.getElementsByClassName("ops")
 let firstNum;
 let secondNum;
 let f;
-console.log(numbers.length)
-
-for(let i = 0; i < numbers.length; i++) {
+for(let i = 0; i < 16; i++) {
+    let b = 0
+    let t = display.value.length;
     let num = document.getElementById(`${i}`)
     num.addEventListener("click", e => {
-        display.value = parseInt(display.value + num.value);
+        if(b == 1) {
+            clear();
+        }
+        if(num.value == "+" || num.value == "-" || num.value == "*" || num.value == "/"){
+            firstNum = parseInt(display.value);
+            switch(num.value) {
+                case "+": f = "add"; break;
+                case "-": f = "subtract"; break;
+                case "*": f = "multiply"; break;
+                case "/": f = "divide"; break;
+            };
+            display.value = display.value + num.value;
+            t = display.value.length
+            console.log(t);
+        }
+        else if(display.value == 0) {
+            display.value = num.value;
+        }else if(num.value == "="){
+            let secondNum = display.value.split("")
+            t = display.value.length
+            console.log(t);
+            secondNum = secondNum.slice(t-1)
+            console.log(secondNum)
+            secondNum = parseInt(secondNum.join(""));
+            console.log(firstNum,f,secondNum)
+            display.value = operate(f,firstNum,secondNum);
+            b = 1;
+        }else{
+            display.value = display.value + num.value;
+        }
     })
 }
+function clear() {
+    let firstNum;
+    let secondNum;
+    let f;
+    b = 0;
+    display.value = 0;
+}
+let clearButton = document.getElementById('16');
+clearButton.addEventListener('click', clear());
 
 function add(a,b) {
     return a + b;
@@ -30,14 +68,11 @@ function multiply(a,b) {
 }
 
 function operate(op, a, b) {
-    if(op == "multiply") {
-        multiply(a,b);
-    }else if(op == "divide") {
-        divide(a,b);
-    }else if(op == "sub") {
-        subtract(a,b);
-    }else if(op == "add") {
-        add(a,b);
+    switch(op){
+        case "add": return add(a,b);
+        case "subtract": return subtract(a,b);
+        case "divide": return divide(a,b);
+        case "multiply": return multiply(a,b);
     }
 }
 //work in progress
