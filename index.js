@@ -7,40 +7,50 @@ let f;
 for(let i = 0; i < 16; i++) {
     let b = 0
     let t = display.value.length;
-    let num = document.getElementById(`${i}`)
-    num.addEventListener("click", e => {
-        if(b == 1) {
-            clear();
-        }
-        if(num.value == "+" || num.value == "-" || num.value == "*" || num.value == "/"){
-            firstNum = parseInt(display.value);
-            switch(num.value) {
-                case "+": f = "add"; break;
-                case "-": f = "subtract"; break;
-                case "*": f = "multiply"; break;
-                case "/": f = "divide"; break;
-            };
-            display.value = display.value + num.value;
-            t = display.value.length
-            console.log(t);
-        }
-        else if(display.value == 0) {
-            display.value = num.value;
-        }else if(num.value == "="){
-            let secondNum = display.value.split("")
-            t = display.value.length
-            console.log(t);
-            secondNum = secondNum.slice(t-1)
-            console.log(secondNum)
-            secondNum = parseInt(secondNum.join(""));
-            console.log(firstNum,f,secondNum)
-            display.value = operate(f,firstNum,secondNum);
-            b = 1;
-        }else{
-            display.value = display.value + num.value;
-        }
+    let button = document.getElementById(`${i}`)
+    button.addEventListener("click", e => {
+        if(button.value != "=") {changeDisplay(button)
+        }else{total(display.value)}
     })
 }
+function changeDisplay(b) {
+    if(display.value == 0) {
+        display.value = b.value;
+    }else{
+        display.value = display.value + b.value;
+    }
+}
+
+function total(string) {
+    let all = /[\*\/\+\-]/
+    let m = /\*/
+    let d = /\//
+    let a = /\+/
+    let s = /\-/
+    if(!all.test(string)) {
+        display.value = parseInt(display.value)
+    }
+    else if(string.search(all)) {
+        if(m.test(string)) {
+            let num = string.split(m)
+            console.log(num);
+            display.value = operate("multiply", num[0], num[1]);
+        }else if(d.test(string)) {
+            let num = string.split(d)
+            console.log(num);
+            display.value = operate("divide", num[0], num[1])
+        }else if(a.test(string)) {
+            let num = string.split(a)
+            console.log(num);
+            display.value = operate("add", num[0], num[1]);
+        }else{
+            let num = string.split(s)
+            console.log(num);
+            display.value = operate("subtract", num[0], num[1])
+        }
+    }
+}
+
 function clear() {
     let firstNum;
     let secondNum;
@@ -49,10 +59,10 @@ function clear() {
     display.value = 0;
 }
 let clearButton = document.getElementById('16');
-clearButton.addEventListener('click', clear());
+clearButton.addEventListener('click', clear);
 
 function add(a,b) {
-    return a + b;
+    return parseInt(a) + parseInt(b);
 }
 
 function subtract(a,b) {
@@ -75,39 +85,3 @@ function operate(op, a, b) {
         case "multiply": return multiply(a,b);
     }
 }
-//work in progress
-/*document.addEventListener("keydown", e => {
-    let k = parseInt(e.keyCode);
-    console.log(k);
-    let t;
-    let fk;
-    go()
-    function go () {
-        if(firstNum == undefined || f == undefined){
-        if((k >= 48 && k <= 57) || (k >= 96 && k<= 105)) {
-            display.value = parseInt(display.value + e.key);
-        }else if(k == 107 || k == 106 || k == 111 || k == 109){
-            firstNum = parseInt(display.value);
-            f = k
-            display.value = 0
-        }
-    }else{
-        if((k >= 48 && k <= 57) || (k >= 96 && k<= 105)) {
-            display.value = parseInt(display.value + e.key);
-        }else if(k == 13){
-            secondNum = parseInt(display.value);
-            switch(f) {
-                case 107: t = add(firstNum,secondNum); fk = "+"; break;
-                case 109: t = subtract(firstNum,secondNum); fk = "-"; break;
-                case 106: t = multiply(firstNum,secondNum); fk = "*"; break;
-                case 111: t = divide(firstNum,secondNum); fk = "/"; break
-            }
-            let total = document.createElement("div")
-            total.textContent = `${firstNum} ${fk} ${secondNum} = ${t}`
-            out.appendChild(total);
-            firstNum = undefined;
-            display.value = t;
-            go()
-        }
-    }}
-})*/
