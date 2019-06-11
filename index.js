@@ -1,17 +1,77 @@
 let display = document.getElementById("display");
-let numbers = document.getElementsByClassName("input")
-let ops = document.getElementsByClassName("ops")
-let firstNum;
-let secondNum;
-let f;
+let disallowLetters = /[a-z]/gi
+let disallowSymbols = /[\!\@\#\$\%\%\^\&\(\)\_\|\<\>\?\,]/g
+let all = /[\*\/\+\-]/g
+let m = /\*/
+let d = /\//
+let a = /\+/
+let s = /\-/
+display.addEventListener("keydown", e => {
+    if(e.keyCode < 48 || e.keycode >57) {
+        e.preventDefault;
+    }
+})
 for(let i = 0; i < 16; i++) {
-    let b = 0
+    //add event listeners to each button
     let t = display.value.length;
     let button = document.getElementById(`${i}`)
     button.addEventListener("click", e => {
-        if(button.value != "=") {changeDisplay(button)
-        }else{total(display.value)}
+        if(button.value != "=") {
+            changeDisplay(button)
+        }else{
+            console.log(typeof display.value)
+            let str = display.value
+            let t1 = disallowLetters.test(str)
+            let t2 = disallowSymbols.test(str)
+            if(t1 != false || t2 != false){
+                console.log("I'm Sorry, only numbers and basic functions allowed!")
+                clear()
+            }else{
+            let i1 = getOps(display.value).join("")
+            let i2 = display.value.split(all)
+            multiOps(i1,i2)
+            }
+        }
     })
+}
+
+function multiOps(arr1, arr2) {
+    //arr1 is the array of operators
+    //arr2 is the array of numbers entered
+    let times = arr1.length
+    for(let i = 0; i < times; i++) { //iterate over how many operations were used
+        if(arr1.search(m) != -1) { //search for multiplication first
+            let opIndex = arr1.search(m);
+            arr1 = arr1.replace(m,"") //remove the operator used
+            let numbers = arr2.slice(opIndex, (opIndex+2))
+            let sol = multiply(numbers[0],numbers[1])
+            arr2.splice(opIndex,2, sol)//insert solution into array where it should be
+        }else if(arr1.search(d) != -1) { // search for division
+            let opIndex = arr1.search(d);
+            arr1 = arr1.replace(d,"")
+            let numbers = arr2.slice(opIndex, (opIndex+2))
+            let sol = divide(numbers[0],numbers[1])
+            arr2.splice(opIndex,2, sol)
+        }else if(arr1.search(a) != -1) { //search for addition
+            let opIndex = arr1.search(a);
+            arr1 = arr1.replace(a,"")
+            let numbers = arr2.slice(opIndex, (opIndex+2))
+            let sol = add(numbers[0],numbers[1])
+            arr2.splice(opIndex,2, sol)
+        }else if(arr1.search(s) != -1) { //search for subtraction
+            let opIndex = arr1.search(s);
+            arr1 = arr1.replace(s,"")
+            let numbers = arr2.slice(opIndex, (opIndex+2))
+            let sol = subtract(numbers[0],numbers[1])
+            arr2.splice(opIndex,2, sol)
+        }
+    }
+    console.log(typeof arr2[0]);
+    display.value = arr2[0] //display final product
+}
+
+function getOps(string) {
+    return string.match(all);
 }
 function changeDisplay(b) {
     if(display.value == 0) {
@@ -21,41 +81,7 @@ function changeDisplay(b) {
     }
 }
 
-function total(string) {
-    let all = /[\*\/\+\-]/
-    let m = /\*/
-    let d = /\//
-    let a = /\+/
-    let s = /\-/
-    if(!all.test(string)) {
-        display.value = parseInt(display.value)
-    }
-    else if(string.search(all)) {
-        if(m.test(string)) {
-            let num = string.split(m)
-            console.log(num);
-            display.value = operate("multiply", num[0], num[1]);
-        }else if(d.test(string)) {
-            let num = string.split(d)
-            console.log(num);
-            display.value = operate("divide", num[0], num[1])
-        }else if(a.test(string)) {
-            let num = string.split(a)
-            console.log(num);
-            display.value = operate("add", num[0], num[1]);
-        }else{
-            let num = string.split(s)
-            console.log(num);
-            display.value = operate("subtract", num[0], num[1])
-        }
-    }
-}
-
 function clear() {
-    let firstNum;
-    let secondNum;
-    let f;
-    b = 0;
     display.value = 0;
 }
 let clearButton = document.getElementById('16');
@@ -75,13 +101,4 @@ function divide(a, b) {
 
 function multiply(a,b) {
     return a * b;
-}
-
-function operate(op, a, b) {
-    switch(op){
-        case "add": return add(a,b);
-        case "subtract": return subtract(a,b);
-        case "divide": return divide(a,b);
-        case "multiply": return multiply(a,b);
-    }
 }
