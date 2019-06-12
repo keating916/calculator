@@ -16,7 +16,6 @@ for(let i = 0; i < 16; i++) {
         if(button.value != "=") {
             changeDisplay(button)
         }else{
-            console.log(typeof display.value)
             let str = display.value;
             let t1 = disallowLetters.test(str)
             let t2 = disallowSymbols.test(str)
@@ -31,6 +30,13 @@ for(let i = 0; i < 16; i++) {
         }
     })
 }
+let backspace = document.getElementById("back");
+backspace.addEventListener("click", e => {
+    let d = display.value;
+    d = d.split("")
+    d.pop()
+    display.value = d.join("")
+})
 
 function multiOps(arr1, arr2) {
     //arr1 is the array of operators
@@ -64,9 +70,17 @@ function multiOps(arr1, arr2) {
             arr2.splice(opIndex,2, sol)
         }
     }
-    console.log(typeof arr2[0]);
-    addHistory(str, arr2[0])
-    display.value = arr2[0] //display final product
+    let sol = arr2[0]
+    let tf = Number.isInteger(sol);
+    console.log
+    if(tf == true) {
+        addHistory(str, sol);
+        display.value = sol;
+    }else{
+        sol = Math.round(sol*100)/100;
+        addHistory(str, sol)
+        display.value = sol //display final product
+    }
 }
 
 function getOps(string) {
