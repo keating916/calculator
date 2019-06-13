@@ -12,6 +12,12 @@ for(let i = 0; i < 16; i++) {
     //add event listeners to each button
     let t = display.value.length;
     let button = document.getElementById(`${i}`)
+    button.addEventListener('mouseover', e => {
+        button.style.color = "white";
+    })
+    button.addEventListener('mouseout', e => {
+        button.style.color = "black";
+    })
     button.addEventListener("click", e => {
         if(button.value != "=") {
             changeDisplay(button)
@@ -36,6 +42,12 @@ backspace.addEventListener("click", e => {
     d = d.split("")
     d.pop()
     display.value = d.join("")
+})
+backspace.addEventListener('mouseover', e => {
+    backspace.style.color = "white";
+})
+backspace.addEventListener('mouseout', e => {
+    backspace.style.color = "black";
 })
 
 function multiOps(arr1, arr2) {
@@ -104,6 +116,12 @@ function clear() {
 }
 let clearButton = document.getElementById('16');
 clearButton.addEventListener('click', clear);
+clearButton.addEventListener('mouseover', e => {
+    clearButton.style.color = "white";
+})
+clearButton.addEventListener('mouseout', e => {
+    clearButton.style.color = "black";
+})
 
 function add(a,b) {
     return parseInt(a) + parseInt(b);
