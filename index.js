@@ -8,6 +8,11 @@ let d = /\//
 let a = /\+/
 let s = /\-/
 
+let dot = document.getElementById("14");
+dot.addEventListener("click", () => {
+    dot.disabled = true;
+})
+
 for(let i = 0; i < 16; i++) {
     //add event listeners to each button
     let t = display.value.length;
@@ -34,7 +39,7 @@ for(let i = 0; i < 16; i++) {
             multiOps(i1,i2)
             }
         }
-    })
+    }) 
 }
 let backspace = document.getElementById("back");
 backspace.addEventListener("click", e => {
@@ -109,6 +114,15 @@ function addHistory(input, answer) {
     let out = document.createElement("p")
     out.textContent = `${input} = ${answer}`
     output.appendChild(out);
+}
+
+for(let i = 10; i < 17; i++) {
+    if(i != 14) {
+        let b = document.getElementById(`${i}`)
+        b.addEventListener("click", ()=> {
+            dot.disabled = false;
+        })
+    }
 }
 
 function clear() {
